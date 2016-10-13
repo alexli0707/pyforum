@@ -8,3 +8,5 @@ venv/
 
 #current config
 config.py
+.idea
+.DS_Store
