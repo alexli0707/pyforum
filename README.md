@@ -1,2 +1,2 @@
 # pyforum
-A python forum base on framework of flask
+A forum written by python base on framework of flask
