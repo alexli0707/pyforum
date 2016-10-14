@@ -8,3 +8,4 @@ venv/
 
 #current config
 config.py
+.idea
