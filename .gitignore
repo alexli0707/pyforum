@@ -5,7 +5,8 @@
 
 #virtualenv
 venv/
-
 #current config
 config.py
 .idea
+//后台前端忽略
+website/static/node_modules

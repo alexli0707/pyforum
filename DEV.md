@@ -11,3 +11,32 @@
 		
 		pip install  -r requirement.txt  
   以安装工具库
+  
+
+
+### HTTP返回码
+
+
+        200  成功
+        其他 失败
+
+### HTTP 接口返回值结构
+
+        {
+            "meta":
+            {
+                "code": "业务码",
+                "message": "状态信息"
+            },
+            "pagination": ...
+            "data": ...
+        }
+    
+        说明:
+        pagination有两种
+        1 普通分页
+            {
+                "rows_found": "找到的总记录数",
+                "offset": "起始游标",
+                "limit": "条数"
+            }
