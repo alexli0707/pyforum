@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>SITE_MAP</title>
+    <style type="text/css">
+        h3 {
+            background: #EDF2F5;
+            border-bottom: 1px solid #BCC5CC;
+            border-top: 2px solid #9AA5AD;
+            padding-left: 15px;
+            height: 28px;
+        }
+    </style>
+</head>
+<body>
+
+{% for _ in site_map %}
+<h2> {{ _.rule }} </h2>
+<ul>
+    <li>{{ _.endpoint }}</li>
+    <li><strong>permission: </strong>{{ _.function.__permission__ }}</li>
+    <li>
+        {% for method in _.methods %}
+        <span>{{ method }}</span>
+        {% endfor %}
+    </li>
+</ul>
+{% endfor %}
+</body>
+</html>

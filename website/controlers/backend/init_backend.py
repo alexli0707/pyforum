@@ -12,11 +12,16 @@ from flask import request, Markup, render_template, g, session, url_for
 """初始化后台"""
 
 
-def init(app):
-    init_context_processor(app)
-    init_url_rules(app)
-    init_before_request(app)
-    init_globals(app)
+def init(blueprint):
+    """
+
+    :param blueprint:
+    :return:
+    """
+    init_context_processor(blueprint)
+    init_url_rules(blueprint)
+    init_before_request(blueprint)
+    init_globals(blueprint)
 
 
 def init_globals(app):
