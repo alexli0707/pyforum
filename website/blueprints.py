@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from website.http.main_exception import MainException
 from website.http.response_meta import ResponseMeta
 
 __author__ = 'walker_lee'
 from flask import Blueprint,session
 import random, string
 import time
-from website.controlers.backend.init_backend import init as _init_backend
 """
 初始化蓝图
 """
@@ -37,7 +35,7 @@ def init_backend(app,server):
     """
     :param app : Flask instance
     """
-
+    from website.controlers.backend.init_backend import init as _init_backend
     _init_backend(blueprint=backend)
     _init_template_filter(backend)
     _init_template_global(backend)
