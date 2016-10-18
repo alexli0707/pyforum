@@ -2,11 +2,13 @@ click==6.6
 Flask==0.11.1
 Flask-Login==0.3.2
 Flask-OAuthlib==0.9.3
+Flask-Session==0.3.0
 itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
 oauthlib==2.0.0
 peewee==2.8.5
+redis==2.10.5
 requests==2.11.1
 requests-oauthlib==0.7.0
 Werkzeug==0.11.11
