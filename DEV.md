@@ -11,6 +11,11 @@
 		
 		pip install  -r requirement.txt  
   以安装工具库
+
+* 初始化后台前端框架=>后台前端目录暂停项目根目录下/static,
+
+        cd static
+        npm install
   
 
 
