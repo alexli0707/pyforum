@@ -3,7 +3,7 @@
 from website.http.response_meta import ResponseMeta
 
 __author__ = 'walker_lee'
-ur"""定义异常"""
+"""定义异常"""
 
 
 class MainException(object):

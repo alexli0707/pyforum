@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from urllib import parse
+
 import re
 
 from website.http.main_exception import MainException
@@ -7,7 +9,7 @@ from website.http.main_exception import MainException
 __author__ = 'walker_lee'
 from flask import request, Markup, render_template, g, session, url_for
 
-ur"""初始化后台"""
+"""初始化后台"""
 
 
 def init(app):
@@ -47,7 +49,7 @@ def init_url_rules(app):
 
 
 def init_context_processor(app):
-    ur"""定义html模板方法"""
+    """定义html模板方法"""
     @app.context_processor
     def pjax_processor():
         """
@@ -146,8 +148,7 @@ def init_context_processor(app):
         """
 
         def hostname(url):
-            from urlparse import urlparse
-            return urlparse(url).netloc
+            return parse.urlparse(url).netloc
 
         return dict(hostname=hostname)
 

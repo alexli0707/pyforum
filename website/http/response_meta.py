@@ -7,7 +7,7 @@ __author__ = 'walker_lee'
 from werkzeug.wrappers import Response
 from flask import json
 
-ur"""返回Response中的meta信息"""
+"""返回Response中的meta信息"""
 
 class ResponseMeta(Exception):
 
