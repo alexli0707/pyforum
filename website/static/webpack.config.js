@@ -1,8 +1,11 @@
 var webpack = require('webpack');
-var distDir = './dist'
+var distDir = './dist';
+
 module.exports = {
     entry: {
         // cats:'./src/cats.js',
+        'vendor': ['jquery', 'bootstrap'],
+        'init_common': './src/init_common.js',
         'custom/app': './src/app.js',
     },
     output: {
@@ -20,21 +23,17 @@ module.exports = {
         //         comments: false,
         //     },
         // }),
+        //配置Jquery全局名称
         new webpack.ProvidePlugin({
             $: "jquery",
-            jQuery: "jquery"
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
         }),
-
+        //公共引用的js单独打包
+        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js')
     ],
-    resolve: {
-        // root: [],
-        // alias: {
-        //     jquery: "node_modules/jquery/dist/jquery.js"
-        // }
-        alias: {
-            'jquery': 'jquery'
-        }
-    },
+
+
     module: {
         preLoaders: [
             {
@@ -44,7 +43,9 @@ module.exports = {
             }
         ],
         loaders: [
-            {test: require.resolve("jquery"), loader: "expose?$!expose?jQuery"}
+            {test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery'},
+            {test: /\.css$/, loader: "style-loader!css-loader"},
+            { test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, loader: "file-loader" },
         ]
     },
     // more options in the optional jshint object

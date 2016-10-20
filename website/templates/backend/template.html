@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>管理后台</title>
+    <link rel="stylesheet" href="{{ url_for('admin.static', filename='themes/bootstrap/css/admin/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('admin.static', filename='themes/default/css/cms.css') }}"/>
+    <!-- Bootstrap core CSS -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('admin.static', filename='themes/bootstrap/css/dashboard.css') }}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {% block header %}{% endblock %}
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('.index') }}">新游部落</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                {% for item in g.menu %}
+                    {% if permission(item.id) %}
+                        <li {% if item.id == g.cur_menu[0]['parent_id'] %}class="active"{% endif %}>
+                            <a class="lf" href="{% set flag = True %}
+                                    {% for sitem in g.sub_menu %}
+                                    {% if permission(sitem.id) and flag and sitem.parent_id == item.id %}{{ sitem.uri }}
+                                    {% set flag = False %}{% endif %}{% endfor %}">{{ item.name }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <div class="navbar-form navbar-right">
+                <ul class="nav nav-pills">
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            {{ g.user.name }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('admin.users_reset_password_page') }}">重置密码</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url_for('admin.logout') }}">退出登录</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                {% for item in g.cur_menu %}
+                    {% if permission(item.id) %}
+                        <li class="{% if active_cur_menu(item.prefix) %}active{% endif %}">
+                            <a href="{{ item.uri }}">{{ item.name }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="main">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var baseurl = '{{ url_for('admin.index') }}';
+    var csrfToken = '{{ csrf_token() }}';
+</script>
+<script src="{{ url_for('admin.static', filename='js/seajs/sea.js') }}"></script>
+<script src="{{ url_for('admin.static', filename='js/config.js') }}"></script>
+<script>seajs.use('dist/app/admin/main')</script>
+{% block script %}{% endblock %}
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

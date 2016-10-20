@@ -1,5 +1,7 @@
 var cats = require('./cats.js');
 
+// var test = require('jquery');
 
 console.log(cats);
-// console.log($.fn);
+console.log('So good');
+console.log($.fn.jquery);

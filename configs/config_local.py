@@ -41,6 +41,8 @@ OSS_ACCESS_KEY_SECRET = 'UHxy2kEJX1D0C4onYcOjfBK22Ky7j9'
 OSS_END_POINT = 'http://oss-cn-hangzhou.aliyuncs.com'
 OSS_IMG_END_POINT = 'http://img-cn-hangzhou.aliyuncs.com'  # 图片访问域名, 用于处理图片缩放等
 
+TEMPLATES_AUTO_RELOAD =True #自动刷新html
+
 
 
 # SESSION
