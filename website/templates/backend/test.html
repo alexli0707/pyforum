@@ -9,9 +9,11 @@
 
     <script src="{{url_for('backend.static',filename='dist/vendor.js')}}"></script>
     <script src="{{url_for('backend.static',filename='dist/init_common.js')}}"></script>
+    <link href="{{ url_for('backend.static', filename='themes/bootstrap/css/dashboard.css') }}" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
     <![endif]-->
 </head>
 <body>
@@ -37,10 +39,13 @@
     </div>
 </nav>
 <h1>HHHAAHA</h1>
-
-
 <h1>HHHAAHA</h1>
-</body>
+<script>
+    var baseurl = '{{ url_for('backend.index') }}';
+    var csrfToken = '{{ csrf_token() }}';
+</script>
+{% block script %}{% endblock %}
 <script src="{{url_for('backend.static',filename='dist/custom/app.js')}}"></script>
+</body>
 
 </html>
