@@ -12,15 +12,29 @@ module.exports = {
     // watch: true,
     //压缩代码
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-            },
-            output: {
-                comments: false,
-            },
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false,
+        //     },
+        //     output: {
+        //         comments: false,
+        //     },
+        // }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
         }),
+
     ],
+    resolve: {
+        // root: [],
+        // alias: {
+        //     jquery: "node_modules/jquery/dist/jquery.js"
+        // }
+        alias: {
+            'jquery': 'jquery'
+        }
+    },
     module: {
         preLoaders: [
             {
@@ -28,6 +42,9 @@ module.exports = {
                 exclude: /node_modules/, // exclude any and all files in the node_modules folder
                 loader: "jshint-loader"
             }
+        ],
+        loaders: [
+            {test: require.resolve("jquery"), loader: "expose?$!expose?jQuery"}
         ]
     },
     // more options in the optional jshint object
@@ -46,6 +63,7 @@ module.exports = {
         failOnHint: false,
 
         // custom reporter function
-        reporter: function(errors) { }
+        reporter: function (errors) {
+        }
     }
 };

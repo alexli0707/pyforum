@@ -3,7 +3,7 @@
 from website.http.response_meta import ResponseMeta
 
 __author__ = 'walker_lee'
-from flask import Blueprint,session
+from flask import Blueprint,session,render_template
 import random, string
 import time
 """
@@ -39,19 +39,27 @@ def init_backend(app,server):
     _init_backend(blueprint=backend)
     _init_template_filter(backend)
     _init_template_global(backend)
+    _config__backend_error_handler(backend, server.name)
     app.register_blueprint(backend, url_prefix=app.config["ADMIN_URL_PREFIX"])
-    _config_error_handler(app, server.name)
 
 
 
-def _config_error_handler(app, blueprint_name):
-    def http_error_handler(err):
-        return ResponseMeta(http_code=err.code, description=err.description).get_response()
+def _config__backend_error_handler(blueprint, blueprint_name):
+    """
+    后台异常如果是4XX异常则返回对应页面,5XX异常则返回对应服务端异常页面
+    :param blueprint:
+    :param blueprint_name:
+    :return:
+    """
+    @blueprint.errorhandler(500)
+    def internal_server_error(e):
+        return render_template('backend/error/500.html')
 
-    def response_meta_handler(response_meta):
+    #由于是后台,不用处理未捕捉异常,直接抛出来便于发现处理
+    # @blueprint.errorhandler(Exception)
+    # def error(e):
+    #     return render_template('backend/error/500.html')
+
+    @blueprint.errorhandler(ResponseMeta)
+    def handler_response_meta(response_meta):
         return response_meta.get_response()
-
-    app.error_handler_spec[blueprint_name] = {}
-    for error in list(range(400, 420)) + list(range(500, 506)):
-        app.error_handler_spec[blueprint_name][error] = http_error_handler
-        app._register_error_handler(blueprint_name, ResponseMeta, response_meta_handler)
