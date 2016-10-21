@@ -4,7 +4,7 @@ var distDir = './dist';
 module.exports = {
     entry: {
         // cats:'./src/cats.js',
-        'vendor': ['jquery', 'bootstrap'],
+        'vendor': ['jquery', 'bootstrap', './lib/pjax/jquery.pjax.js'],
         'init_common': './src/init_common.js',
         'custom/app': './src/app.js',
     },
@@ -45,7 +45,7 @@ module.exports = {
         loaders: [
             {test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery'},
             {test: /\.css$/, loader: "style-loader!css-loader"},
-            { test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, loader: "file-loader" },
+            {test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, loader: "file-loader"},
         ]
     },
     // more options in the optional jshint object
