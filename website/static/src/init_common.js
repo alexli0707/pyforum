@@ -5,6 +5,16 @@
 require('bootstrap/dist/css/bootstrap.css');
 require('toastr/build/toastr.css');
 require('toastr/toastr.js');
+var helper = {
+    getCsrfToken: function () {
+        if (csrfToken) {
+            _csrfToken = csrfToken;
+            csrfToken = null;
+        }
+        return _csrfToken;
+    },
+}
+
 $(function () {
     var toastr = require('toastr');
     var doc = $(document);
@@ -54,13 +64,13 @@ $(function () {
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {
             // 设定csrf_token
-            // xhr.setRequestHeader('csrf-token', Page.getCsrfToken());
+            xhr.setRequestHeader('csrf-token', helper.getCsrfToken());
         },
         contentType: 'application/json',
         dataType: 'json'
     });
 
-    //
+
     // if ($.support.pjax) {
     //     doc.on('click', 'a[data-pjax]',function (e) {
     //         $.pjax.click(e, {
