@@ -8,12 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>管理后台</title>
-    <link rel="stylesheet" href="{{ url_for('admin.static', filename='themes/bootstrap/css/admin/main.css') }}"/>
-    <link rel="stylesheet" href="{{ url_for('admin.static', filename='themes/default/css/cms.css') }}"/>
-    <!-- Bootstrap core CSS -->
-    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="{{ url_for('admin.static', filename='themes/bootstrap/css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ url_for('backend.static', filename='themes/bootstrap/css/dashboard.css') }}" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -33,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('.index') }}">新游部落</a>
+            <a class="navbar-brand" href="{{ url_for('.index') }}">管理后台</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
@@ -92,15 +87,10 @@
     var baseurl = '{{ url_for('admin.index') }}';
     var csrfToken = '{{ csrf_token() }}';
 </script>
-<script src="{{ url_for('admin.static', filename='js/seajs/sea.js') }}"></script>
-<script src="{{ url_for('admin.static', filename='js/config.js') }}"></script>
-<script>seajs.use('dist/app/admin/main')</script>
+<script src="{{ url_for('backend.static',filename='dist/vendor.js') }}"></script>
+<script src="{{ url_for('backend.static',filename='dist/init_common.js') }}"></script>
+<script src="{{ url_for('backend.static',filename='dist/custom/app.js') }}"></script>
 {% block script %}{% endblock %}
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

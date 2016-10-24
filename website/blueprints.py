@@ -6,6 +6,7 @@ __author__ = 'walker_lee'
 from flask import Blueprint,session,render_template
 import random, string
 import time
+from website.constant import SESSION_CSRF_TOKEN
 """
 初始化蓝图
 """
@@ -26,10 +27,9 @@ def _init_template_filter(app):
 def _init_template_global(app):
     @app.app_template_global()
     def csrf_token():
-        if '_csrf_token' not in session:
-            session['_csrf_token'] = ''.join(random.sample(string.ascii_letters + string.digits, 8))
-        return session['_csrf_token']
-
+        if SESSION_CSRF_TOKEN not in session:
+            session[SESSION_CSRF_TOKEN] = ''.join(random.sample(string.ascii_letters + string.digits, 8))
+        return session[SESSION_CSRF_TOKEN]
 
 def init_backend(app,server):
     """

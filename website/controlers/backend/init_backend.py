@@ -8,6 +8,7 @@ from website.http.main_exception import MainException
 
 __author__ = 'walker_lee'
 from flask import request, Markup, render_template, g, session, url_for
+from website.constant import SESSION_CSRF_TOKEN
 
 """初始化后台"""
 
@@ -35,7 +36,7 @@ def init_before_request(app):
         POST,PUT,DELETE请求需要带csrf_token
         """
         if request.method in ['POST', 'PUT', 'DELETE'] and request.path != url_for('.login'):
-            token = session.get('_csrf_token', None)
+            token = session.get(SESSION_CSRF_TOKEN, None)
             if not token or token != request.headers.get('csrf-token'):
                 raise MainException.CSRF_TOKEN_INVALID
 
