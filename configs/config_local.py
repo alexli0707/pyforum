@@ -19,10 +19,10 @@ API_ADDRESS = 'http://localhost:5000/v2/api'
 
 SUPER_ADMIN = ('admin', 'admin')
 
+
 # 数据库配置
-MYSQL_NG = ('172.25.1.111', 3306, 'unitest_forum', 'unitest_forum', 'unitest_forum', True, 'utf8')
-MYSQL_GC = ('172.25.1.111', 3306, 'ngds_user', 'ngds_user.mysql', 'game_store', True, 'utf8')
-MYSQL = MYSQL_NG
+MYSQL_NAME = 'pyforum'
+MYSQL = {'host': 'localhost', 'password': 'root', 'user': '1212'}
 
 OBJECT_ID_WIDTH = 10 ** 13  # 全局ID的长度
 
@@ -51,3 +51,17 @@ SESSION_SALT = 'h\xf2\x80-\x93\x80\x9d\x8b\xdf_\t\xa4>5\xa2w\x91\xcd\xe1\x82\xdb
 
 # app 环境模式,目前分为DEV 与PRO(线上)
 APP_MODE = 'DEV'
+
+
+# email server
+MAIL_SERVER = 'smtp.exmail.qq.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = 'clan@newgame.com'
+MAIL_PASSWORD = 'Ngds123'
+MAIL_DEFAULT_SENDER = 'clan@newgame.com'
+#MAIL_SUPPRESS_SEND = True  # 为True时,不会发送邮件
+
+
+SECRET_KEY = '6a4c8iu7fa'

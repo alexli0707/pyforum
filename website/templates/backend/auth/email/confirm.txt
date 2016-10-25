@@ -1,0 +1,7 @@
+您好, {{ user.username }},
+
+欢迎注册!
+
+验证请点击这里:
+
+{{ url_for('backend.confirm', token=token, _external=True) }}

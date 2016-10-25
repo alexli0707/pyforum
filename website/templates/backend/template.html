@@ -52,9 +52,9 @@
                             {{ g.user.name }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('admin.users_reset_password_page') }}">重置密码</a></li>
+                            <li><a href="{{ url_for('backend.password_reset_request') }}">重置密码</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="{{ url_for('admin.logout') }}">退出登录</a></li>
+                            <li><a href="{{ url_for('backend.logout') }}">退出登录</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -84,7 +84,7 @@
 
 
 <script>
-    var baseurl = '{{ url_for('admin.index') }}';
+    var baseurl = "{{ url_for('backend.index') }}";
     var csrfToken = '{{ csrf_token() }}';
 </script>
 <script src="{{ url_for('backend.static',filename='dist/vendor.js') }}"></script>

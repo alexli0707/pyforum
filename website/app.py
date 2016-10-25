@@ -2,15 +2,26 @@
 # -*- coding: utf-8 -*-
 from enum import Enum
 
-from config import SESSION_SALT
+from config import SESSION_SALT, MYSQL, MYSQL_NAME
 from flask import Flask, current_app, render_template
+from flask.ext.login import LoginManager
 from flask_session import Session
 from flask_session.sessions import RedisSessionInterface
+from playhouse.pool import PooledMySQLDatabase
 
 from website import blueprints
+from flask_mail import Mail
+
 
 __author__ = 'walker_lee'
 """应用初始化入口以及配置"""
+
+
+mail = Mail()
+db = PooledMySQLDatabase(database=MYSQL_NAME, max_connections=32, stale_timeout=300, **MYSQL)
+login_manager = LoginManager()
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'backend.login'
 
 
 class Server(Enum):
@@ -26,6 +37,8 @@ def create_app(config=None, server=Server.all):
     init_blueprint(app, server)
     _config_session(app)
     _config_sitemap(app)
+    mail.init_app(app)
+    login_manager.init_app(app)
     return app
 
 

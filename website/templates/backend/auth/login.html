@@ -1,0 +1,9 @@
+<form method="post">
+    邮箱:<input type="text" name="email">
+    密码:<input type="text" name="password">
+    <input type="submit" name="提交">
+</form>
+
+<a href="{{ url_for('backend.password_reset_request') }}">忘记密码</a>
+<a href="{{ url_for('backend.register') }}">点击注册</a>
+

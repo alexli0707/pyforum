@@ -3,6 +3,7 @@
 from urllib import parse
 
 import re
+from website.app import db
 
 from website.http.main_exception import MainException
 
@@ -31,20 +32,28 @@ def init_globals(app):
 
 def init_before_request(app):
     @app.before_request
-    def csrf_protect():
-        """
-        POST,PUT,DELETE请求需要带csrf_token
-        """
-        if request.method in ['POST', 'PUT', 'DELETE'] and request.path != url_for('.login'):
-            token = session.get(SESSION_CSRF_TOKEN, None)
-            if not token or token != request.headers.get('csrf-token'):
-                raise MainException.CSRF_TOKEN_INVALID
+    # def csrf_protect():
+    #     """
+    #     POST,PUT,DELETE请求需要带csrf_token
+    #     """
+    #     if request.method in ['POST', 'PUT', 'DELETE'] and request.path != url_for('.login'):
+    #         token = session.get(SESSION_CSRF_TOKEN, None)
+    #         if not token or token != request.headers.get('csrf-token'):
+    #             raise MainException.CSRF_TOKEN_INVALID
 
     @app.before_request
     def try_login():
         if not hasattr(g, 'user'):
             g.user = session.get('user', {})
 
+
+
+    def init_after_request(app):
+        @app.teardown_request
+        def close_db(exception):
+            if not db.is_closed():
+                db.close()
+            pass
 
 def init_url_rules(app):
     # app.add_url_rule('/images', view_func=images_upload)
