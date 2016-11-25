@@ -9,11 +9,13 @@ from werkzeug.security import generate_password_hash
 
 @backend.before_app_request
 def before_request():
-    if current_user.is_authenticated \
-            and not current_user.confirmed \
-            and request.endpoint[:5] != 'auth.' \
-            and request.endpoint != 'static':
-        return redirect(url_for('backend.unconfirmed'))
+    if current_user.is_authenticated:
+        print(current_user.confirmed)
+        if not current_user.confirmed:
+                # and request.endpoint \
+                # and request.endpoint[:8] != 'backend.' \
+                # and request.endpoint != 'static':
+            return redirect(url_for('backend.unconfirmed'))
 
 
 @backend.route('/auth/unconfirmed')
@@ -26,15 +28,16 @@ def unconfirmed():
 @backend.route('/auth/login', methods=['GET', 'POST'])
 def login():
     """登录"""
-    if(request.method == 'POST'):  # 提交表单
+    if (request.method == 'POST'):  # 提交表单
         email = request.form.get('email')
         user = User.get(User.email == email)
         if user and user.verify_password(request.form.get('password')):  # 验证密码
             login_user(user)
             return redirect(url_for('backend.index'))
-        return'邮箱或密码有错.'
+        return '邮箱或密码有错.'
 
-    return render_template('backend/auth/login.html')
+    # return render_template('backend/auth/login.html')
+    return render_template('backend/template_new.html')
 
 
 @backend.route('/auth/logout')
@@ -48,7 +51,7 @@ def logout():
 @backend.route('/auth/register', methods=['GET', 'POST'])
 def register():
     """用户注册"""
-    if(request.method == 'POST'):  # 提交表单
+    if (request.method == 'POST'):  # 提交表单
         # 写入数据库
         email = request.form.get('email')
         username = request.form.get('username')
@@ -58,7 +61,7 @@ def register():
         # 发送邮箱验证
         token = user.generate_confirmation_token()
         send_email(user.email, '邮箱验证',
-               'backend/auth/email/confirm', user=user, token=token)
+                   'backend/auth/email/confirm', user=user, token=token)
 
         return '注册成功,已发送邮件!'
 
@@ -135,4 +138,3 @@ def password_reset(token):
         return '操作失败.'
 
     return render_template('backend/auth/reset_password.html')
-

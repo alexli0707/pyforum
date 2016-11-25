@@ -4,7 +4,7 @@ from enum import Enum
 
 from config import SESSION_SALT, MYSQL, MYSQL_NAME
 from flask import Flask, current_app, render_template
-from flask.ext.login import LoginManager
+from flask_login import LoginManager
 from flask_session import Session
 from flask_session.sessions import RedisSessionInterface
 from playhouse.pool import PooledMySQLDatabase
@@ -20,7 +20,8 @@ __author__ = 'walker_lee'
 mail = Mail()
 db = PooledMySQLDatabase(database=MYSQL_NAME, max_connections=32, stale_timeout=300, **MYSQL)
 login_manager = LoginManager()
-login_manager.session_protection = 'strong'
+# login_manager.session_protection = 'strong'
+login_manager.session_protection = None
 login_manager.login_view = 'backend.login'
 
 

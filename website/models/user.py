@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import current_app
+from flask import current_app,abort
 from flask.ext.login import AnonymousUserMixin, UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from peewee import Model, IntegerField, CharField
 from website.app import db, login_manager
+from website.http.main_exception import MainException
 from werkzeug.security import check_password_hash
 
 
@@ -15,7 +16,7 @@ class User(UserMixin, Model):
     email = CharField()
     username = CharField()
     password_hash = CharField()
-    confirmed = IntegerField
+    confirmed = IntegerField()
 
 
     class Meta:
@@ -37,6 +38,7 @@ class User(UserMixin, Model):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
+            print(data)
         except:
             return False
         if data.get('confirm') != self.id:
@@ -83,5 +85,9 @@ login_manager.anonymous_user = AnonymousUser
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(User.id == int(user_id))
+    user = User.get(User.id == int(user_id))
+    if not user:
+        abort(404)
+    else:
+        return user
 

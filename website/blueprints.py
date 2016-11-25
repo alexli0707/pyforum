@@ -11,7 +11,7 @@ from website.constant import SESSION_CSRF_TOKEN
 初始化蓝图
 """
 
-backend = Blueprint('backend', __name__, static_folder='static', static_url_path='/admin',
+backend = Blueprint('backend', __name__, static_folder='static', static_url_path='',
                     template_folder='templates')
 
 
