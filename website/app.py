@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import string
+
+import random
 from enum import Enum
 
 from config import SESSION_SALT, MYSQL, MYSQL_NAME
-from flask import Flask, current_app, render_template
+from flask import Flask, current_app, render_template,session
 from flask_login import LoginManager
 from flask_session import Session
 from flask_session.sessions import RedisSessionInterface
@@ -40,6 +43,7 @@ def create_app(config=None, server=Server.all):
     _config_sitemap(app)
     mail.init_app(app)
     login_manager.init_app(app)
+    app.jinja_env.globals['csrf_token'] = _generate_csrf_token
     return app
 
 
@@ -55,6 +59,13 @@ def _config_session(app):
     app.config['SESSION_TYPE'] = 'redis'
     Session(app)
     # app.session_interface = RedisSessionInterface()
+
+def _generate_csrf_token():
+    if '_csrf_token' not in session:
+        session['_csrf_token'] = ''.join(random.sample(string.ascii_letters + string.digits, 8))
+    return session['_csrf_token']
+
+
 
 
 def _config_sitemap(app):

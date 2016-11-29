@@ -5,7 +5,10 @@
   "main": "main.js",
   "dependencies": {
     "admin-lte": "^2.3.8",
-    "jquery": "^3.1.1"
+    "font-awesome": "^4.7.0",
+    "ionicons": "^3.0.0",
+    "jquery": "^3.1.1",
+    "toastr": "^2.1.2"
   },
   "devDependencies": {},
   "scripts": {

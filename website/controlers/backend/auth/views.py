@@ -36,9 +36,7 @@ def login():
             return redirect(url_for('backend.index'))
         return '邮箱或密码有错.'
 
-    # return render_template('backend/auth/login.html')
-    return render_template('backend/template_new.html')
-
+    return render_template('backend/auth/login_new.html')
 
 @backend.route('/auth/logout')
 @login_required
