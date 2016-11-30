@@ -17,7 +17,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="{{ url_for('backend.static', filename='node_modules/font-awesome/css/font-awesome.min.css') }}"
           rel="stylesheet">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+     <link href="{{ url_for('backend.static', filename='node_modules/ionicons/dist/css/ionicons.min.css') }}"
+          rel="stylesheet">
     <!-- Theme style -->
     <link href="{{ url_for('backend.static', filename='node_modules/admin-lte/dist/css/AdminLTE.min.css') }}"
           rel="stylesheet">
@@ -29,7 +30,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="{{ url_for('backend.static', filename='node_modules/admin-lte/dist/css/skins/skin-purple.min.css') }}"
           rel="stylesheet">
     <!--   toastr -->
-    <link href="{{ url_for('backend.static', filename='node_modules/admin-lte/toastr/build/toastr.min.css') }}"
+    <link href="{{ url_for('backend.static', filename='node_modules/toastr/build/toastr.min.css') }}"
           rel="stylesheet">
 
     <link rel="shortcut icon" href="{{ url_for('backend.static',filename='imgs/favicon.ico') }}"/>
@@ -69,7 +70,7 @@ desired effect
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="{{ url_for('.index') }}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
@@ -127,14 +128,10 @@ desired effect
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="{{ url_for('backend.logout') }}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
-                    </li>
-                    <!-- Control Sidebar Toggle Button -->
-                    <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                     </li>
                 </ul>
             </div>
@@ -187,7 +184,7 @@ desired effect
         <section class="content">
 
             <!-- Your Page Content Here -->
-
+            {% block body %}{% endblock %}
         </section>
         <!-- /.content -->
     </div>
@@ -208,7 +205,10 @@ desired effect
     <div class="control-sidebar-bg"></div>
 </div>
 
-
+<script>
+    var baseurl = '{{ url_for('backend.index') }}';
+    var csrfToken = '{{ csrf_token() }}';
+</script>
 <!-- REQUIRED JS SCRIPTS -->
 {#<!-- jQuery 2.2.3 -->#}
 <script src="{{ url_for('backend.static',filename='node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
@@ -216,9 +216,13 @@ desired effect
 <script src="{{ url_for('backend.static',filename='node_modules/admin-lte/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url_for('backend.static',filename='node_modules/admin-lte/dist/js/app.min.js') }}"></script>
+{#<!-- toastr -->#}
+<script src="{{ url_for('backend.static',filename='node_modules/toastr/build/toastr.min.js') }}"></script>
 
 <script src="{{ url_for('backend.static',filename='lib/require.js') }}"
         data-main="{{ url_for('backend.static',filename='main.js') }}"></script>
+{% block script %}
+{% endblock %}
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

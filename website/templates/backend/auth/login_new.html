@@ -18,6 +18,9 @@
     <!-- Theme style -->
     <link href="{{ url_for('backend.static', filename='node_modules/admin-lte/dist/css/AdminLTE.min.css') }}"
           rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="{{ url_for('backend.static', filename='node_modules/toastr/build/toastr.css') }}"
+          rel="stylesheet">
     <!-- iCheck -->
     <link href="{{ url_for('backend.static', filename='node_modules/admin-lte/plugins/iCheck/square/blue.css') }}"
           rel="stylesheet">
@@ -39,31 +42,29 @@
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form  method="post">
-            <div class="form-group has-feedback">
-                <input type="email" class="form-control" name="email" placeholder="Email">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password" name="password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> Remember Me
-                        </label>
-                    </div>
+        <div class="form-group has-feedback">
+            <input type="email" class="form-control" id="email" placeholder="Email">
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input type="password" class="form-control" placeholder="Password" id="password">
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <div class="checkbox icheck">
+                    <label>
+                        <input type="checkbox"> Remember Me
+                    </label>
                 </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                    <input type="hidden" name="csrfToken" value="{{ csrf_token() }}"/>
-                </div>
-                <!-- /.col -->
             </div>
-        </form>
+            <!-- /.col -->
+            <div class="col-xs-4">
+                <button type="button" class="btn btn-primary btn-block btn-flat" id="signIn">Sign In</button>
+                <input type="hidden" name="csrfToken" value="{{ csrf_token() }}"/>
+            </div>
+            <!-- /.col -->
+        </div>
 
         <a href="#">I forgot my password</a><br>
         <a href="register.html" class="text-center">Register a new membership</a>
@@ -73,14 +74,29 @@
 </div>
 <!-- /.login-box -->
 
+<script>
+    var baseurl = '{{ url_for('backend.index') }}';
+    var csrfToken = '{{ csrf_token() }}';
+</script>
 {#<!-- jQuery 2.2.3 -->#}
 <script src="{{ url_for('backend.static',filename='node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 {#<!-- Bootstrap 3.3.6 -->#}
 <script src="{{ url_for('backend.static',filename='node_modules/admin-lte/bootstrap/js/bootstrap.min.js') }}"></script>
+{#<!-- toastr -->#}
+<script src="{{ url_for('backend.static',filename='node_modules/toastr/build/toastr.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{ url_for('backend.static',filename='node_modules/admin-lte/plugins/iCheck/icheck.min.js') }}"></script>
+
 <script src="{{ url_for('backend.static',filename='lib/require.js') }}"
-        data-main="{{ url_for('backend.static',filename='main.js') }}"></script>
+        data-main="{{ url_for('backend.static',filename='main') }}"></script>
+
+<script>
+    requirejs(['{{ url_for('backend.static',filename='src/backend/auth/login.js') }}']);
+</script>
+
+
+{#<script src="{{ url_for('backend.static',filename='lib/require.js') }}"#}
+{#        data-main="{{ url_for('backend.static',filename='src/backend/auth/login.js') }}"></script>#}
 <script>
     $(function () {
         $('input').iCheck({

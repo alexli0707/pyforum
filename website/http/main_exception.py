@@ -42,3 +42,5 @@ class MainException(object):
     SOMANY_ARGS = ResponseMeta(code=1002, description='参数过长')
     CSRF_TOKEN_INVALID = ResponseMeta(code=1003, description='csrf token错误', http_code=403)
     DEVICE_NOT_FOUND = ResponseMeta(code=1004, description='未知设备参数')
+
+    EMAIL_OR_PASSWORD_ERROR = ResponseMeta(code=2001,description='用户名或者密码错误')

@@ -6,13 +6,13 @@ requirejs.config({
     paths:{
         'jquery':'node_modules/jquery/dist/jquery.min',
         'toastr':'node_modules/toastr/build/toastr.min',
+        'util':'src/backend/util'
     }
 });
 
-
 define(function (require, exports, module) {
     var $ = require('jquery');
-    var toastr = require('toastr')
+    var toastr = require('toastr');
     var helper = {
         getPath: function (url) {
             var host = location.protocol + '//' + location.host;
@@ -45,41 +45,40 @@ define(function (require, exports, module) {
 
     $(function () {
         var doc = $(document);
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
+       toastr.options = {
+          "closeButton": false,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": true,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
         }
         doc.ajaxSend(function (e, xhr, settings) { // 开始一个ajax请求
             toastr['info']('正在载入数据...')
-            // tip.show({
-            //     text: '正在载入数据...',
-            //     timer: 2000,
-            //     hideTimer: 30000
-            // });
         }).ajaxStart(function () { // 开始一个ajax请求且无其他ajax请求过程
 
         }).ajaxSuccess(function (e, xhr, settings) { // 一个ajax成功
             helper.highlight(helper.getPath(settings.url));
-            toastr.hide();
+            toastr.clear();
         }).ajaxError(function (e, xhr, settings, err) { // 一个ajax失败
             if (err !== 'abort') {
                 var msg = xhr && xhr.responseJSON && xhr.responseJSON.meta && xhr.responseJSON.meta.message;
-                toastr['error'](msg || err || '服务器异常');
+                toastr.clear();
+                var errorMsg = msg || err || '服务器异常';
+                console.log(errorMsg)
+                toastr.error(errorMsg);
             } else {
-                toastr.hide();
+                toastr.clear();
+                toastr.error('服务器异常');
             }
         }).ajaxComplete(function (e, xhr, settings) { // 一个ajax完成
 

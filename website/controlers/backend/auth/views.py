@@ -3,25 +3,15 @@ from flask_login import login_user, logout_user, login_required, \
     current_user
 from website.blueprints import backend
 from website.helper.email import send_email
+from website.http.main_exception import MainException
+from website.http.response import Response
 from website.models.user import User
 from werkzeug.security import generate_password_hash
-
-
-@backend.before_app_request
-def before_request():
-    if current_user.is_authenticated:
-        print(current_user.confirmed)
-        if not current_user.confirmed:
-                # and request.endpoint \
-                # and request.endpoint[:8] != 'backend.' \
-                # and request.endpoint != 'static':
-            return redirect(url_for('backend.unconfirmed'))
+from website.http.request import Request
 
 
 @backend.route('/auth/unconfirmed')
 def unconfirmed():
-    if current_user.is_anonymous or current_user.confirmed:
-        return redirect(url_for('backend.index'))
     return render_template('backend/auth/unconfirmed.html')
 
 
@@ -29,13 +19,16 @@ def unconfirmed():
 def login():
     """登录"""
     if (request.method == 'POST'):  # 提交表单
-        email = request.form.get('email')
-        user = User.get(User.email == email)
-        if user and user.verify_password(request.form.get('password')):  # 验证密码
+        data = Request(request).json()
+        email = data['email']
+        try:
+            user = User.get(User.email == email)
+        except User.DoesNotExist:
+            raise MainException.EMAIL_OR_PASSWORD_ERROR
+        if user and user.verify_password(data['password']):  # 验证密码
             login_user(user)
-            return redirect(url_for('backend.index'))
-        return '邮箱或密码有错.'
-
+            return Response()
+        raise MainException.EMAIL_OR_PASSWORD_ERROR
     return render_template('backend/auth/login_new.html')
 
 @backend.route('/auth/logout')
@@ -43,7 +36,7 @@ def login():
 def logout():
     """退出登录"""
     logout_user()
-    return '你已退出登录.'
+    return redirect(url_for('backend.login'))
 
 
 @backend.route('/auth/register', methods=['GET', 'POST'])
