@@ -29,7 +29,7 @@ def login():
             login_user(user)
             return Response()
         raise MainException.EMAIL_OR_PASSWORD_ERROR
-    return render_template('backend/auth/login_new.html')
+    return render_template('backend/auth/login.html')
 
 @backend.route('/auth/logout')
 @login_required
@@ -66,7 +66,7 @@ def confirm(token):
     if current_user.confirmed:  # 已验证过
         return redirect(url_for('backend.index'))
     if current_user.confirm(token):  # 验证通过
-        return '验证成功!'
+        return redirect(url_for('.index'))
     else:
         return '该链接已失效.'
     return redirect(url_for('backend.index'))
@@ -79,7 +79,7 @@ def resend_confirmation():
     token = current_user.generate_confirmation_token()
     send_email(current_user.email, '邮箱验证',
                'backend/auth/email/confirm', user=current_user, token=token)
-    return '邮件已重新发送'
+    return Response()
 
 
 @backend.route('/auth/change-password', methods=['GET', 'POST'])

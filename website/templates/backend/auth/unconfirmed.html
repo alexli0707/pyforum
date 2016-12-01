@@ -13,7 +13,13 @@
     </p>
     <p>
         Need another confirmation email?
-        <a href="{{ url_for('backend.resend_confirmation') }}">Click here</a>
+        <button class="btn btn-primary" id="btnSend">Click here</button>
     </p>
 </div>
+{% endblock %}
+{% block script %}
+    <script>
+     requirejs(['{{ url_for('backend.static',filename='src/backend/auth/unconfirm.js') }}']);
+    </script>
+
 {% endblock %}
