@@ -1,27 +1,41 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import peewee
 from flask import current_app,abort
 from flask.ext.login import AnonymousUserMixin, UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from peewee import Model, IntegerField, CharField
+from peewee import Model, IntegerField, CharField,PrimaryKeyField
 from website.app import db, login_manager
 from website.http.main_exception import MainException
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash,generate_password_hash
 
 
 class User(UserMixin, Model):
 
-    id = IntegerField(primary_key=True)
-    email = CharField()
-    username = CharField()
+    id = PrimaryKeyField()
+    email = CharField(index=True)
+    username = CharField(index=True)
     password_hash = CharField()
+    role_id = IntegerField()
     confirmed = IntegerField()
 
 
     class Meta:
         database = db
         db_table = 'users'
+
+    def register(self,email,password,username):
+        user = User(email=email, username=username, password_hash=generate_password_hash(password))
+        try:
+            user.save()
+        except peewee.IntegrityError as err:
+            print(err.args)
+            if  err.args[0] == 1062:
+                if 'ix_users_email' in err.args[1]:
+                    raise MainException.DUPLICATE_EMAIL
+                if 'ix_users_username' in err.args[1]:
+                    raise MainException.DUPLICATE_USERNAME
+        return user
 
 
     def verify_password(self, password):
@@ -67,8 +81,6 @@ class User(UserMixin, Model):
         self.save()
         return True
 
-    def __repr__(self):
-        return '<User %r>' % self.username
 
 """
 匿名用户
@@ -90,4 +102,6 @@ def load_user(user_id):
         abort(404)
     else:
         return user
+
+
 

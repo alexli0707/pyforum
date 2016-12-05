@@ -44,17 +44,19 @@ def register():
     """用户注册"""
     if (request.method == 'POST'):  # 提交表单
         # 写入数据库
-        email = request.form.get('email')
-        username = request.form.get('username')
-        password_hash = generate_password_hash(request.form.get('password'))
-        user = User(email=email, username=username, password_hash=password_hash)
-        user.save()
+        data = Request(request).json()
+        email = data['email']
+        username = data['username']
+        password = data['password']
+        user = User().register(email= email,password=password,username=username)
+        print(user._data)
+        login_user(user)
         # 发送邮箱验证
         token = user.generate_confirmation_token()
         send_email(user.email, '邮箱验证',
                    'backend/auth/email/confirm', user=user, token=token)
 
-        return '注册成功,已发送邮件!'
+        return Response('注册成功,已发送邮件!')
 
     return render_template('backend/auth/register.html')
 

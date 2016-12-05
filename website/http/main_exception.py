@@ -44,3 +44,5 @@ class MainException(object):
     DEVICE_NOT_FOUND = ResponseMeta(code=1004, description='未知设备参数')
 
     EMAIL_OR_PASSWORD_ERROR = ResponseMeta(code=2001,description='用户名或者密码错误')
+    DUPLICATE_EMAIL = ResponseMeta(code=2002,description='邮箱已注册')
+    DUPLICATE_USERNAME = ResponseMeta(code=2003,description='用户名已注册')
