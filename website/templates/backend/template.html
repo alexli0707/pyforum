@@ -17,7 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="{{ url_for('backend.static', filename='node_modules/font-awesome/css/font-awesome.min.css') }}"
           rel="stylesheet">
     <!-- Ionicons -->
-     <link href="{{ url_for('backend.static', filename='node_modules/ionicons/dist/css/ionicons.min.css') }}"
+    <link href="{{ url_for('backend.static', filename='node_modules/ionicons/dist/css/ionicons.min.css') }}"
           rel="stylesheet">
     <!-- Theme style -->
     <link href="{{ url_for('backend.static', filename='node_modules/admin-lte/dist/css/AdminLTE.min.css') }}"
@@ -94,7 +94,7 @@ desired effect
                             <img src="{{ url_for('backend.static',filename='node_modules/admin-lte/dist/img/user2-160x160.jpg') }}"
                                  class="user-image" alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs">Alexander Pierce</span>
+                            <span class="hidden-xs">{{ current_user.username }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
@@ -103,7 +103,7 @@ desired effect
                                      class="img-circle" alt="User Image">
 
                                 <p>
-                                    Alexander Pierce - Web Developer
+                                    {{ current_user.username }}
                                     <small>Member since Nov. 2012</small>
                                 </p>
                             </li>
@@ -128,7 +128,8 @@ desired effect
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{{ url_for('backend.logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="{{ url_for('backend.logout') }}" class="btn btn-default btn-flat">Sign
+                                        out</a>
                                 </div>
                             </li>
                         </ul>
@@ -142,24 +143,32 @@ desired effect
 
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
-                <li class="header">HEADER</li>
-                <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                        <span class="pull-right-container">
+                <li class="header">Menu</li>
+
+                {% for item in g.menu %}
+                    {% if permission(item.id) %}
+                        <li class="treeview {% if g.cur_menu and item.id == g.cur_menu[0]['parent_id'] %} active{% endif %}">
+                            <a href="{% set flag = True %}
+                                    {% for sitem in g.sub_menu %}
+                                    {% if permission(sitem.id) and flag and sitem.parent_id == item.id %}{{ sitem.uri }}
+                                    {% set flag = False %}{% endif %}{% endfor %}"><i class="fa fa-link"></i>
+                                <span>{{ item.name }}</span>
+                                <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#">Link in level 2</a></li>
-                        <li><a href="#">Link in level 2</a></li>
-                    </ul>
-                </li>
+                            </a>
+                            <ul class="treeview-menu">
+                                {% for sub_menu in g.sub_menu %}
+                                    {% if permission(sub_menu.id) and sub_menu.parent_id== item.id%}
+                                        <li class="{% if active_cur_menu(item.prefix) %}active{% endif %}"><a href="{{ sub_menu.uri }}">{{ sub_menu.name }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                {% endfor %}
             </ul>
             <!-- /.sidebar-menu -->
         </section>

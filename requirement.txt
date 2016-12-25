@@ -1,15 +1,20 @@
-click==6.6
-Flask==0.11.1
-Flask-Login==0.3.2
-Flask-OAuthlib==0.9.3
-Flask-Session==0.3.0
-itsdangerous==0.24
-Jinja2==2.8
-MarkupSafe==0.23
-oauthlib==2.0.0
-peewee==2.8.5
-redis==2.10.5
-requests==2.11.1
-requests-oauthlib==0.7.0
-Werkzeug==0.11.11
-flask-mail==0.9.1
+blinker (1.4)
+click (6.6)
+Flask (0.11.1)
+Flask-Login (0.3.2)
+Flask-Mail (0.9.1)
+Flask-OAuthlib (0.9.3)
+flask-paginate (0.4.5)
+Flask-Session (0.3.0)
+itsdangerous (0.24)
+Jinja2 (2.8)
+MarkupSafe (0.23)
+oauthlib (2.0.0)
+peewee (2.8.5)
+pip (8.1.2)
+PyMySQL (0.7.9)
+redis (2.10.5)
+requests (2.11.1)
+requests-oauthlib (0.7.0)
+setuptools (15.0)
+Werkzeug (0.11.11)

@@ -171,9 +171,9 @@ def init_context_processor(app):
     @app.context_processor
     def utility_processor():
         def permission(per):
-            if g.user.get('permission') == []:
+            if g.modules == []:
                 return True
-            if per in g.user.get('permission'):
+            if per in g.modules:
                 return True
             return False
 

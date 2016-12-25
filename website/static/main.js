@@ -6,7 +6,7 @@ requirejs.config({
     paths:{
         'jquery':'node_modules/jquery/dist/jquery.min',
         'toastr':'node_modules/toastr/build/toastr.min',
-        'util':'src/backend/util'
+        // 'util':'src/backend/util'
     }
 });
 

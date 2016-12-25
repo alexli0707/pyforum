@@ -4,7 +4,7 @@
 define(function (require, exports, module) {
     var $ = require('jquery');
     var toastr = require('toastr');
-    var Util = require('util');
+    var Util = require('src/backend/util');
 
     var helper = {
         getData: function () {

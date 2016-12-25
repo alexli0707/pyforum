@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, login_required, \
     current_user
 from website.blueprints import backend
 from website.helper.email import send_email
+from website.http.funcs import get_redirect_target, is_safe_url
 from website.http.main_exception import MainException
 from website.http.response import Response
 from website.models.user import User
@@ -27,6 +28,7 @@ def login():
             raise MainException.EMAIL_OR_PASSWORD_ERROR
         if user and user.verify_password(data['password']):  # 验证密码
             login_user(user)
+
             return Response()
         raise MainException.EMAIL_OR_PASSWORD_ERROR
     return render_template('backend/auth/login.html')
@@ -49,7 +51,6 @@ def register():
         username = data['username']
         password = data['password']
         user = User().register(email= email,password=password,username=username)
-        print(user._data)
         login_user(user)
         # 发送邮箱验证
         token = user.generate_confirmation_token()

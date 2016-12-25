@@ -4,9 +4,9 @@
 define(function (require, exports, module) {
     var $ = require('jquery');
     var toastr = require('toastr');
-    var Util = require('util')
+    var Util = require('src/backend/util');
     $(function () {
-        $('#signIn').click(function(event){
+        $('#signIn').click(function (event) {
             var data = {
                 'email': $.trim($('#email').val()),
                 'password':$.trim($('#password').val()),
@@ -17,28 +17,8 @@ define(function (require, exports, module) {
                 type: 'POST',
                 data: Util.stringify(data)
             }).done(function (parm) {
-                Util.redirect('');
+                Util.redirectNextUrl();
             });
         })
     });
 });
-// require(['jquery', 'toastr','backend/util'], function ($, toastr,Util) {
-//     $(function () {
-//         //点击登录
-//          $('#signIn').click(function(event){
-//             var data = {
-//                 'email': $.trim($('#email').val()),
-//                 'password':$.trim($('#password').val()),
-//             }
-//
-//             $.ajax({
-//                 url: Util.formatUrl('auth/login'),
-//                 type: 'POST',
-//                 data: Util.stringify(data)
-//             }).done(function (parm) {
-//                 toastr.success('修改成功');
-//                 Util.redirect('propagation/carousel');
-//             });
-//         })
-//     });
-// });
