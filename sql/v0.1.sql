@@ -41,6 +41,7 @@ ALTER TABLE `manage_module` ADD INDEX `i_parentid_weight`(`parent_id`,`weight`);
 
 insert into manage_module(id,parent_id,name,uri,weight)values(1,0,'文章','/posts',900);
 insert into manage_module(id,parent_id,name,uri,prefix,weight)values(2,1,'文章管理','/posts','/posts',900);
+insert into manage_module(id,parent_id,name,uri,prefix,weight)values(3,1,'标签管理','/post/tags','/post/tags',700);
 #用户角色说明------ 开始
 DROP  TABLE IF EXISTS `user_role`;
 
@@ -75,6 +76,7 @@ CREATE TABLE `role_module` (
 
 ALTER TABLE `role_module` ADD  INDEX `i_role_id`(`role_id`);
 INSERT INTO `role_module` (`role_id`,`module_id`) VALUES (256,1),(256,2);
+INSERT INTO `role_module` (`role_id`,`module_id`) VALUES (256,3);
 
 #角色模块表 -----结束
 
@@ -113,11 +115,14 @@ INSERT INTO `post` (`title`,`user_id`,`summary`,`content`,`created_at`,`posted_a
 INSERT INTO `post` (`title`,`user_id`,`summary`,`content`,`created_at`,`posted_at`,`updated_at`,`read_count`,`like_count`,`comment_floor`)
     VALUES ('测试7',25,'测试1sumamry','测试1内容',UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,0,0);
 
-
+DROP TABLE IF EXISTS `post_tag`;
 CREATE TABLE `post_tag` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `tag_name` varchar(60) NOT NULL COMMENT '文章标签名字', -- 标签名字，唯一
   `visit_count` int unsigned NOT NULL DEFAULT 0, -- 标签的访问次数
-  PRIMARY KEY (`tag_name`)
+  `created_at` int unsigned NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  Index `i_tag_name`(`tag_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '帖子标签';
 
 CREATE TABLE `post_tag_relate` (

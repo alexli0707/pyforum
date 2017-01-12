@@ -162,7 +162,7 @@ desired effect
                             <ul class="treeview-menu">
                                 {% for sub_menu in g.sub_menu %}
                                     {% if permission(sub_menu.id) and sub_menu.parent_id== item.id%}
-                                        <li class="{% if active_cur_menu(item.prefix) %}active{% endif %}"><a href="{{ sub_menu.uri }}">{{ sub_menu.name }}</a></li>
+                                        <li class="{% if active_cur_menu(sub_menu.prefix) %}active{% endif %}"><a href="{{ sub_menu.uri }}">{{ sub_menu.name }}</a></li>
                                     {% endif %}
                                 {% endfor %}
                             </ul>
@@ -180,13 +180,13 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Page Header
-                <small>Optional description</small>
+                {{ page_header['title'] or '' }}
+{#                <small>Optional description</small>#}
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
-            </ol>
+{#            <ol class="breadcrumb">#}
+{#                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>#}
+{#                <li class="active">Here</li>#}
+{#            </ol>#}
         </section>
 
         <!-- Main content -->

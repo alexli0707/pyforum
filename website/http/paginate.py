@@ -6,14 +6,15 @@ from flask.ext.paginate import Pagination
 __author__ = 'walker_lee'
 
 
-class CustomPagination(Pagination):
+class FlaskPagination(Pagination):
     """封装自定义分页,peewee与flask-pagination结合,默认分页10条数据,可以在传入per_page中调整"""
 
-    def __init__(self, rows, found=0, **kwargs):
+    def __init__(self, query, found=0, **kwargs):
         per_page = kwargs.get('per_page', 10)
         css_framework = kwargs.get('css_framework', 'bootstrap3')
-        total = kwargs.get('total', rows.count())
+        total = kwargs.get('total', query.count())
         record_name = kwargs.get('record_name', 'rows')
+        kwargs['page']= FlaskPagination.get_page()
         kwargs['per_page'] = per_page
         kwargs['css_framework'] = css_framework
         kwargs['total'] = total

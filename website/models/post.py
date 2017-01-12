@@ -23,3 +23,14 @@ class Post(Model):
     class Meta:
         database = db
         db_table = 'post'
+
+
+class PostTag(Model):
+    id = PrimaryKeyField()
+    tag_name = CharField()
+    visit_count = IntegerField()
+    created_at = IntegerField()
+
+    class Meta:
+        database = db
+        db_table = 'post_tag'
