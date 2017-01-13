@@ -23,10 +23,13 @@ from ...blueprints import backend
 @check_permission
 def post_list():
     rows = Post.select()
-    return object_list('backend/post/post/list.html', paginate=FlaskPagination(query=rows), query=rows,
+    return object_list('post/post/list.html', paginate=FlaskPagination(query=rows), query=rows,
                        context_variable='rows', paginate_by=10, check_bounds=False, page_header={
             'title': '文章列表',
         })
+
+
+
 
 
 @backend.route('/posts/tags')
@@ -35,7 +38,7 @@ def post_list():
 @check_permission
 def post_tag_list():
     rows = PostTag.select()
-    return object_list('backend/post/tag/list.html', paginate=FlaskPagination(query=rows), query=rows,
+    return object_list('post/tag/list.html', paginate=FlaskPagination(query=rows), query=rows,
                        context_variable='rows', paginate_by=10, check_bounds=False,  page_header={
             'title': '标签列表',
         })

@@ -12,7 +12,7 @@ from website.constant import SESSION_CSRF_TOKEN
 """
 
 backend = Blueprint('backend', __name__, static_folder='static', static_url_path='',
-                    template_folder='templates')
+                    template_folder='templates/backend')
 
 
 def _init_template_filter(app):

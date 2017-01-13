@@ -17,7 +17,7 @@ define(function (require, exports, module) {
                 type: 'POST',
                 data: Util.stringify(data)
             }).done(function (parm) {
-                Util.redirectNextUrl();
+                Util.redirectNextUrl('/');
             });
         })
     });

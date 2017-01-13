@@ -1,11 +1,13 @@
-{% extends 'backend/template.html' %}
+{% extends 'template.html' %}
 {% block body %}
     <div class="row">
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">龙心</h3>
+                    {% with url='backend.post_list'  %}{% include
+            'common/buttons/create_button.html' %}{% endwith %}
                 </div>
+
                 <!-- /.box-header -->
                 <div class="box-body">
                     <table class="table table-bordered">

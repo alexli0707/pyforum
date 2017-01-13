@@ -28,10 +28,9 @@ def login():
             raise MainException.EMAIL_OR_PASSWORD_ERROR
         if user and user.verify_password(data['password']):  # 验证密码
             login_user(user)
-
             return Response()
         raise MainException.EMAIL_OR_PASSWORD_ERROR
-    return render_template('backend/auth/login.html')
+    return render_template('auth/login.html')
 
 @backend.route('/auth/logout')
 @login_required
@@ -55,11 +54,11 @@ def register():
         # 发送邮箱验证
         token = user.generate_confirmation_token()
         send_email(user.email, '邮箱验证',
-                   'backend/auth/email/confirm', user=user, token=token)
+                   'auth/email/confirm', user=user, token=token)
 
         return Response('注册成功,已发送邮件!')
 
-    return render_template('backend/auth/register.html')
+    return render_template('auth/register.html')
 
 
 @backend.route('/auth/confirm/<token>')
@@ -81,7 +80,7 @@ def resend_confirmation():
     """重新发送邮箱验证"""
     token = current_user.generate_confirmation_token()
     send_email(current_user.email, '邮箱验证',
-               'backend/auth/email/confirm', user=current_user, token=token)
+               'auth/email/confirm', user=current_user, token=token)
     return Response()
 
 
@@ -95,7 +94,7 @@ def change_password():
             current_user.save()  # 保存密码
             return '密码修改成功'
 
-    return render_template("backend/auth/change_password.html")
+    return render_template("auth/change_password.html")
 
 
 @backend.route('/auth/reset', methods=['GET', 'POST'])
@@ -110,11 +109,11 @@ def password_reset_request():
         if user:
             token = user.generate_reset_token()
             send_email(user.email, '重置密码',
-                       'backend/auth/email/reset_password',
+                       'auth/email/reset_password',
                        user=user, token=token)
             return '重置密码的邮件已发送'
 
-    return render_template('backend/auth/reset_password_email.html')
+    return render_template('auth/reset_password_email.html')
 
 
 @backend.route('/auth/reset/<token>', methods=['GET', 'POST'])
@@ -131,4 +130,4 @@ def password_reset(token):
             return '重置密码成功.'
         return '操作失败.'
 
-    return render_template('backend/auth/reset_password.html')
+    return render_template('auth/reset_password.html')

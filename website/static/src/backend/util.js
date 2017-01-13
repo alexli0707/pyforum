@@ -41,8 +41,13 @@ define(function (require, exports, module) {
                     }
                 }
             },
-            redirectNextUrl: function () {
-                window.location.href =  this.getUrlParameter('next');
+            redirectNextUrl: function (defaultUrl) {
+                var nextUrl = this.getUrlParameter('next');
+                if (nextUrl){
+                    window.location.href =nextUrl;
+                }else{
+                    window.location.href = defaultUrl;
+                }
             },
             isNotEmpty: function (item) {
                 return item && item.trim();

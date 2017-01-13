@@ -16,4 +16,4 @@ __author__ = 'walker_lee'
 @confirm_required
 @check_permission
 def index():
-    return render_template('backend/template.html')
+    return render_template('template.html',page_header={'title':'do not go gentle into good night'})
