@@ -46,3 +46,12 @@ class MainException(object):
     EMAIL_OR_PASSWORD_ERROR = ResponseMeta(code=2001,description='用户名或者密码错误')
     DUPLICATE_EMAIL = ResponseMeta(code=2002,description='邮箱已注册')
     DUPLICATE_USERNAME = ResponseMeta(code=2003,description='用户名已注册')
+
+    PHOTO_FORMAT_FORBIDDEN = ResponseMeta(code=5001, description='不支持的图片类型')
+    PHOTO_THUMB_MODE_INVALID = ResponseMeta(code=5002, description='缩略图方式未定义')
+    PHOTO_OSS_GET_FAIL = ResponseMeta(code=5003, description='无法获取原图数据')
+
+    NO_FILE_DATA = ResponseMeta(code=6001, description='上传文件数据为空')
+    CHUNK_UPLOAD_MD5_ERROR = ResponseMeta(code=6002, description='校验失败')
+    CHUNK_UPLOAD_ERROR = ResponseMeta(code=6003, description='上传失败')
+    FILE_NOT_SUPPORT = ResponseMeta(code=6004, description='不支持的文件格式')

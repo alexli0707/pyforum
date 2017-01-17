@@ -36,7 +36,7 @@ def init_before_request(app):
         """
         POST,PUT,DELETE请求需要带csrf_token
         """
-        if request.method in ['POST', 'PUT', 'DELETE'] and request.path != url_for('.login'):
+        if request.method in ['POST', 'PUT', 'DELETE'] and request.path != url_for('.login') :
             token = session.get(SESSION_CSRF_TOKEN, None)
             if not token or token != request.headers.get('csrf-token'):
                 raise MainException.CSRF_TOKEN_INVALID
@@ -183,7 +183,7 @@ def init_context_processor(app):
     def utility_processor():
         """激活左边栏当前模块样式"""
         def active_cur_menu(per):
-            if g.uri_path==per:
+            if g.uri_path.startswith(per):
                 return True
 
             return False

@@ -135,4 +135,20 @@ CREATE TABLE `post_tag_relate` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '帖子标签对应';
 
 
+#创建图片----开始
+
+CREATE TABLE `photo` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `filename` varchar(128) NOT NULL COMMENT '文件名',
+  `src` varchar(64) NOT NULL COMMENT '地址',
+  `format` varchar(16) NOT NULL COMMENT '图片格式',
+  `width` SMALLINT unsigned NOT NULL COMMENT '宽',
+  `height` SMALLINT unsigned NOT NULL COMMENT '高',
+  `created_at` int unsigned NOT NULL COMMENT '上传时间',
+  `meta` blob COMMENT '元数据',
+  PRIMARY KEY (`id`),
+  KEY `k_fn` (`filename`),
+  KEY `k_src` (`src`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='图片';
+#创建图片----结束
 
