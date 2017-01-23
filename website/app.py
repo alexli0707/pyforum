@@ -5,6 +5,9 @@ import string
 import random
 from enum import Enum
 
+import redis
+
+import config
 from config import SESSION_SALT, MYSQL, MYSQL_NAME
 from flask import Flask, current_app, render_template,session
 from flask_login import LoginManager
@@ -75,6 +78,12 @@ def init_blueprint(app, server):
 def _config_session(app):
     app.secret_key = SESSION_SALT
     app.config['SESSION_TYPE'] = 'redis'
+
+    redis_session = redis.StrictRedis(host=config.REDIS_HOST,
+                                             port=config.REDIS_PORT,
+                                             db=config.REDIS_DB,
+                                             password=config.REDIS_PASSWORD)
+    app.config['SESSION_REDIS'] = redis_session
     Session(app)
     # app.session_interface = RedisSessionInterface()
 
