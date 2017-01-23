@@ -13,7 +13,7 @@ from website.http.request import Request
 
 @backend.route('/auth/unconfirmed')
 def unconfirmed():
-    return render_template('backend/auth/unconfirmed.html')
+    return render_template('auth/unconfirmed.html')
 
 
 @backend.route('/auth/login', methods=['GET', 'POST'])
