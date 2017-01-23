@@ -2,8 +2,8 @@
  * Created by walker on 16/12/4.
  */
 define(function (require, exports, module) {
-    var $ = require('jquery');
-    var toastr = require('toastr');
+    var $ = requirejs('jquery');
+    var toastr = requirejs('toastr');
     var Util = require('src/backend/util');
 
     var helper = {
