@@ -13,7 +13,9 @@ from website.http.request import Request
 
 @backend.route('/auth/unconfirmed')
 def unconfirmed():
-    return render_template('auth/unconfirmed.html')
+    return render_template('auth/unconfirmed.html',page_header={
+            'title': '请确认邮件',
+        })
 
 
 @backend.route('/auth/login', methods=['GET', 'POST'])
