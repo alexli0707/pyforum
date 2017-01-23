@@ -51,7 +51,7 @@ def create_post():
 
 
 
-@backend.route('/posts/tags')
+@backend.route('/tags')
 @login_required
 @confirm_required
 @check_permission

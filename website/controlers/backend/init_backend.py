@@ -8,7 +8,7 @@ from website.app import db
 from website.http.main_exception import MainException
 
 __author__ = 'walker_lee'
-from flask import request, Markup, render_template, g, session, url_for,abort
+from flask import request, Markup, render_template, g, session, url_for, abort
 from website.constant import SESSION_CSRF_TOKEN
 
 """初始化后台"""
@@ -36,7 +36,7 @@ def init_before_request(app):
         """
         POST,PUT,DELETE请求需要带csrf_token
         """
-        if request.method in ['POST', 'PUT', 'DELETE'] and request.path != url_for('.login') :
+        if request.method in ['POST', 'PUT', 'DELETE'] and request.path != url_for('.login'):
             token = session.get(SESSION_CSRF_TOKEN, None)
             if not token or token != request.headers.get('csrf-token'):
                 raise MainException.CSRF_TOKEN_INVALID
@@ -47,14 +47,13 @@ def init_before_request(app):
         if not hasattr(g, 'user'):
             g.user = session.get('user', {})
 
-
-
     def init_after_request(app):
         @app.teardown_request
         def close_db(exception):
             if not db.is_closed():
                 db.close()
             pass
+
 
 def init_url_rules(app):
     # app.add_url_rule('/images', view_func=images_upload)
@@ -66,6 +65,7 @@ def init_url_rules(app):
 
 def init_context_processor(app):
     """定义html模板方法"""
+
     @app.context_processor
     def pjax_processor():
         """
@@ -182,8 +182,10 @@ def init_context_processor(app):
     @app.context_processor
     def utility_processor():
         """激活左边栏当前模块样式"""
+
         def active_cur_menu(per):
             if g.uri_path.startswith(per):
+            # if g.uri_path == per:
                 return True
 
             return False

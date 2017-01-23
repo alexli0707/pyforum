@@ -41,7 +41,7 @@ ALTER TABLE `manage_module` ADD INDEX `i_parentid_weight`(`parent_id`,`weight`);
 
 insert into manage_module(id,parent_id,name,uri,weight)values(1,0,'文章','/posts',900);
 insert into manage_module(id,parent_id,name,uri,prefix,weight)values(2,1,'文章管理','/posts','/posts',900);
-insert into manage_module(id,parent_id,name,uri,prefix,weight)values(3,1,'标签管理','/post/tags','/post/tags',700);
+insert into manage_module(id,parent_id,name,uri,prefix,weight)values(3,1,'标签管理','/tags','/tags',700);
 #用户角色说明------ 开始
 DROP  TABLE IF EXISTS `user_role`;
 
