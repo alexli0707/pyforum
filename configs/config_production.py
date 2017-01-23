@@ -50,7 +50,7 @@ SESSION_SALT = 'h\xf2\x80-\x93\x80\x9d\x8b\xdf_\t\xa4>5\xa2w\x91\xcd\xe1\x82\xdb
 
 
 # app 环境模式,目前分为DEV 与PRO(线上)
-APP_MODE = 'DEV'
+APP_MODE = 'PRO'
 
 
 # email server
@@ -65,3 +65,5 @@ MAIL_DEFAULT_SENDER = 'pythonforum@163.com'
 
 
 SECRET_KEY = '6a4c8iu7fa'
+
+SENTRY_DSN ='http://8488d5666e144219bde38a76b8f5729f:071ad410ea63469daa50ecdcebc6ded4@139.162.78.193:9000/2'

@@ -15,6 +15,7 @@ from playhouse.pool import PooledMySQLDatabase
 from website import blueprints
 from flask_mail import Mail
 
+from website.helper.sentry_helper import SentryHelper
 
 __author__ = 'walker_lee'
 """应用初始化入口以及配置"""
@@ -59,6 +60,7 @@ def create_app(config=None, server=Server.all):
     mail.init_app(app)
     _init_db(app)
     login_manager.init_app(app)
+    SentryHelper.init_app(app)
     app.jinja_env.globals['csrf_token'] = _generate_csrf_token
     return app
 

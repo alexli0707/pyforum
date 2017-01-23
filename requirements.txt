@@ -24,3 +24,5 @@ Sanic==0.1.9
 ujson==1.35
 uvloop==0.7.1
 Werkzeug==0.11.11
+raven==5.32.0
+
