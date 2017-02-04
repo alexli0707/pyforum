@@ -10,7 +10,7 @@ ADMIN_PORT = 15103
 
 # Blueprint配置
 WWW_URL_PREFIX = '/www'
-ADMIN_URL_PREFIX = '/admin'
+ADMIN_URL_PREFIX = ''
 M_URL_PREFIX = '/m'
 
 # 服务器地址
@@ -22,7 +22,7 @@ SUPER_ADMIN = ('admin', 'admin')
 
 # 数据库配置
 MYSQL_NAME = 'pyforum'
-MYSQL = {'host': 'localhost', 'password': 'root', 'user': '1212'}
+MYSQL = {'host': 'localhost', 'password': '0707', 'user': 'root'}
 
 OBJECT_ID_WIDTH = 10 ** 13  # 全局ID的长度
 
@@ -32,7 +32,7 @@ LOG_SILENT = False
 
 # 图片管理
 IMAGEURL = 'http://127.0.0.1:5000/v2/images'
-IMAGE_BUCKET = 'nb-imgs'
+IMAGE_BUCKET = 'imgs_bucket'
 UPLOAD_TMP_DIR = '/tmp'
 
 # 阿里云oss配置
@@ -43,6 +43,14 @@ OSS_IMG_END_POINT = 'http://img-cn-hangzhou.aliyuncs.com'  # 图片访问域名,
 
 TEMPLATES_AUTO_RELOAD =True #自动刷新html
 
+# REDIS_HOST = '139.162.78.193'
+# REDIS_PORT = '6479'
+# REDIS_DB = '8'
+# REDIS_PASSWORD = 'walkerpassw0rd'
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = '6379'
+REDIS_DB = '8'
+REDIS_PASSWORD = ''
 
 
 # SESSION
@@ -54,13 +62,13 @@ APP_MODE = 'DEV'
 
 
 # email server
-MAIL_SERVER = 'smtp.exmail.qq.com'
-MAIL_PORT = 465
+MAIL_SERVER = 'smtp.163.com'
+MAIL_PORT = 587
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
-MAIL_USERNAME = 'clan@newgame.com'
-MAIL_PASSWORD = 'Ngds123'
-MAIL_DEFAULT_SENDER = 'clan@newgame.com'
+MAIL_USERNAME = 'pythonforum@163.com'
+MAIL_PASSWORD = 'python163'
+MAIL_DEFAULT_SENDER = 'pythonforum@163.com'
 #MAIL_SUPPRESS_SEND = True  # 为True时,不会发送邮件
 
 

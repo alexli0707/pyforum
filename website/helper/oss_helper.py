@@ -43,7 +43,7 @@ class LocalOss(metaclass=Singleton):
 
     def exist_image(self,media_src):
         """判断文件是否存在"""
-        res = requests.head(self._uri + self._get_object(media_src))
+        res = requests.head(self.image_uri + self._get_object(media_src))
         if res.status_code == 404:
             return None
         else:
@@ -72,5 +72,6 @@ def upload_image():
     else:
         photo  =Photo()
         if photo.add(upload_file):
-            pass
-        return Response({})
+            return photo
+        else:
+            return None

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from flask import make_response, jsonify
 from flask import request
 from flask.ext.login import login_required
 
@@ -18,5 +19,13 @@ __author__ = 'walker_lee'
 @confirm_required
 def upload_image():
     """目前上传图片采用ckeditor中drop and paste file的方式进行数据交换"""
-    return oss_upload_image()
+    photo = oss_upload_image()
+    if photo:
+        return jsonify({
+    "uploaded": 1,
+    "fileName": photo.filename,
+    "url":photo.oss().get_img_url(photo.src)
+    })
+
+
 

@@ -55,3 +55,7 @@ class MainException(object):
     CHUNK_UPLOAD_MD5_ERROR = ResponseMeta(code=6002, description='校验失败')
     CHUNK_UPLOAD_ERROR = ResponseMeta(code=6003, description='上传失败')
     FILE_NOT_SUPPORT = ResponseMeta(code=6004, description='不支持的文件格式')
+
+
+
+    ACCOUNT_NOT_FOUND = ResponseMeta(code=10001, description='用户不存在')

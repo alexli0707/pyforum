@@ -19,6 +19,8 @@ from website import blueprints
 from flask_mail import Mail
 
 from website.helper.sentry_helper import SentryHelper
+from website.util.common_utils import is_dev_mode
+
 
 __author__ = 'walker_lee'
 """应用初始化入口以及配置"""
@@ -65,6 +67,7 @@ def create_app(config=None, server=Server.all):
     login_manager.init_app(app)
     SentryHelper.init_app(app)
     app.jinja_env.globals['csrf_token'] = _generate_csrf_token
+    _init_logger()
     return app
 
 
@@ -74,6 +77,14 @@ def init_blueprint(app, server):
     elif server == Server.all:
         blueprints.init_backend(app, server=server)
 
+
+def _init_logger():
+    # peewee的debug模式.
+    if is_dev_mode():
+        import logging
+        logger = logging.getLogger('peewee')
+        logger.setLevel(logging.DEBUG)
+        logger.addHandler(logging.StreamHandler())
 
 def _config_session(app):
     app.secret_key = SESSION_SALT

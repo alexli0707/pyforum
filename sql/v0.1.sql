@@ -91,7 +91,7 @@ CREATE TABLE `post` (
   `content` text NOT NULL COMMENT '内容',
   `created_at` int unsigned NOT NULL COMMENT '帖子创建时间',
   `updated_at` int unsigned NOT NULL COMMENT '帖子修改时间',
-  `posted_at` int unsigned NOT NULL COMMENT '帖子发布时间',
+  `posted_at` int unsigned NOT NULL  COMMENT '帖子发布时间',
   `read_count` int unsigned NOT NULL DEFAULT 0 COMMENT '阅读数',
   `like_count` int unsigned NOT NULL DEFAULT 0 COMMENT '点赞数',
   `comment_floor` int unsigned NOT NULL DEFAULT 0 COMMENT '评论当前楼层',

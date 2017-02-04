@@ -20,6 +20,8 @@ def _init_template_filter(app):
         """
         时间戳日期格式化为可读字符串
         """
+        if not n:
+            return ''
         arr = time.localtime(n)
         return time.strftime(format, arr)
     app.add_app_template_filter(datetime_filter, 'datetime')

@@ -38,8 +38,8 @@ def init_before_request(app):
         """
         if request.method in ['POST', 'PUT', 'DELETE'] and request.path != url_for('.login'):
             token = session.get(SESSION_CSRF_TOKEN, None)
-            if not token or token != request.headers.get('csrf-token'):
-                raise MainException.CSRF_TOKEN_INVALID
+            # if not token or token != request.headers.get('csrf-token'):
+            #     raise MainException.CSRF_TOKEN_INVALID
                 # abort(403)
 
     @app.before_request

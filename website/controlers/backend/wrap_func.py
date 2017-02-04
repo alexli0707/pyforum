@@ -4,6 +4,7 @@ from functools import wraps
 
 from flask import request,g
 
+from website.http.main_exception import MainException
 from website.models.module import ManageModule, RoleModule
 from flask_login import current_user
 
@@ -36,3 +37,10 @@ def init_menus():
     g.sub_menu = submenus
     g.cur_menu = [row for row in submenus if row['parent_id'] == parent_id]
     g.modules = RoleModule.get_modules_by_role_id(role_id=current_user.role_id)
+
+
+def get_user_id():
+    """获取用户id,默认是登录态"""
+    if not current_user.id:
+        raise MainException.ACCOUNT_NOT_FOUND
+    return current_user.id

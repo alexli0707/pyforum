@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    {% with url='backend.create_post_page'  %}{% include
+                    {% with url='backend.create_post_page' %}{% include
             'common/buttons/create_button.html' %}{% endwith %}
                 </div>
 
@@ -17,6 +17,7 @@
                             </th>
                             <th class="col-sm-1 sorttable-nosort">标题</th>
                             <th class="col-sm-1 sorttable-nosort">用户</th>
+                            <th class="col-sm-1 sorttable-nosort">标签</th>
                             <th class="col-sm-2 sorttable-nosort">概要</th>
                             <th class="col-sm-1 sorttable-nosort">
                                 阅读数
@@ -33,14 +34,21 @@
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
                                 <td>{{ row.user_id }}</td>
+                                <td>{{ row.tags }}</td>
                                 <td>{{ row.summary }}</td>
                                 <td>{{ row.read_count }}</td>
                                 <td>{{ row.like_count }}</td>
                                 <td>{{ row.posted_at|datetime }}</td>
                                 <td>{{ row.updated_at|datetime }}</td>
-
                                 <td>
-
+                                    {% with url='backend.post_update_page', params={'id': row.id} %}
+                                        <a href="{{ url_for(url,**(params or {})) }}" type="button"
+                                           class="btn btn-info btn-sm"
+                                           title="">编辑</a>
+                                    {% endwith %}
+                                    <a type="button" class="btn btn-danger btn-sm" data-action="delete"
+                                       data-id="{{ row.id }}"
+                                       title="">删除</a>
                                 </td>
                             </tr>
                         {% else %}

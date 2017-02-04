@@ -4,9 +4,14 @@ import hashlib
 import io
 import pickle
 
+import time
+
+from werkzeug.utils import redirect
+
 from config import IMAGE_BUCKET
 from website.app import db
 from website.http.main_exception import MainException
+from website.util.oss import oss_manager
 
 __author__ = 'walker_lee'
 from peewee import IntegerField, CharField, PrimaryKeyField, Model, TextField, SmallIntegerField, BlobField
@@ -22,12 +27,16 @@ class Photo(Model):
     format = CharField()
     width = SmallIntegerField()
     height = SmallIntegerField()
-    created_at = IntegerField()
+    created_at = IntegerField(default=time.time())
     meta = BlobField()
 
     class Meta:
         database = db
         db_table = 'photo'
+
+    @staticmethod
+    def oss():
+        return oss_manager.oss_by_bucket_name(IMAGE_BUCKET)
 
 
     def add(self,upload_img):
@@ -41,10 +50,10 @@ class Photo(Model):
                 return False
         self._extract_image(upload_img)
         #此处需要判断,如果本地数据库已经存在该图片,则不进行创建
-        self.create()
+        self.save()
         storage_path = self.storage_path(self.src)
         # 文件已存在，直接返回成功
-        if self.oss().exist_image(storage_path):
+        if self.oss().exist(storage_path):
             return True
         # 文件不存在，保存文件
         if self.oss().upload(storage_path, upload_img):
@@ -109,5 +118,23 @@ class Photo(Model):
                     return None
 
         return pickle.dumps(meta)
+
+    def output(self, photo_src, thumbnail=None):
+        """输出图片"""
+        storage_path = self.storage_path(photo_src)
+
+        if thumbnail is None:
+            return redirect(self.oss().get_img_url(storage_path))
+
+        # 获取缩略图大小
+        tmp = thumbnail.split('.')
+        if len(tmp) == 2:
+            thumbnail = tmp[0]
+
+        if thumbnail not in self._thumbnail:
+            raise MainException.PHOTO_THUMB_MODE_INVALID
+
+        # return redirect(self.oss(object_prefix=thumbnail).get_img_url(storage_path))
+        return redirect(self.oss().get_img_url(storage_path,thumbnail))
 
 

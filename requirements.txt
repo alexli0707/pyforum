@@ -1,7 +1,8 @@
 aiofiles==0.3.0
 blinker==1.4
-click==6.6
-Flask==0.11.1
+click==6.7
+contextlib2==0.5.4
+Flask==0.12
 Flask-Login==0.3.2
 Flask-Mail==0.9.1
 Flask-OAuthlib==0.9.3
@@ -9,7 +10,7 @@ flask-paginate==0.4.5
 Flask-Session==0.3.0
 httptools==0.0.9
 itsdangerous==0.24
-Jinja2==2.8
+Jinja2==2.9.4
 MarkupSafe==0.23
 multidict==2.1.4
 oauthlib==2.0.0
@@ -17,12 +18,11 @@ olefile==0.44
 peewee==2.8.5
 Pillow==4.0.0
 PyMySQL==0.7.9
+raven==5.32.0
 redis==2.10.5
 requests==2.11.1
 requests-oauthlib==0.7.0
 Sanic==0.1.9
 ujson==1.35
 uvloop==0.7.1
-Werkzeug==0.11.11
-raven==5.32.0
-
+Werkzeug==0.11.15
