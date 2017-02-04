@@ -5,12 +5,12 @@ from flask import current_app,abort
 from flask.ext.login import AnonymousUserMixin, UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from peewee import Model, IntegerField, CharField,PrimaryKeyField
-from website.app import db, login_manager
+from website.app import db_wrapper, login_manager
 from website.http.main_exception import MainException
 from werkzeug.security import check_password_hash,generate_password_hash
 
 
-class User(UserMixin, Model):
+class User(UserMixin, db_wrapper.Model):
 
     id = PrimaryKeyField()
     email = CharField(index=True)
@@ -21,7 +21,6 @@ class User(UserMixin, Model):
 
 
     class Meta:
-        database = db
         db_table = 'users'
 
     def register(self,email,password,username):

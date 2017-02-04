@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import time
 
-from website.app import db
+from website.app import db_wrapper, db
 from website.http.main_exception import MainException
 from website.util.common_utils import filter_same_element
 
@@ -11,7 +11,7 @@ __author__ = 'walker_lee'
 from peewee import IntegerField, CharField, PrimaryKeyField, Model, TextField, fn, JOIN
 
 
-class Post(Model):
+class Post(db_wrapper.Model):
     id = PrimaryKeyField()
     title = CharField()
     user_id = IntegerField()
@@ -25,7 +25,6 @@ class Post(Model):
     comment_floor = IntegerField()
 
     class Meta:
-        database = db
         db_table = 'post'
 
 
@@ -67,14 +66,13 @@ class Post(Model):
 
 
 
-class PostTag(Model):
+class PostTag(db_wrapper.Model):
     id = PrimaryKeyField()
     tag_name = CharField()
     visit_count = IntegerField()
     created_at = IntegerField(default=time.time())
 
     class Meta:
-        database = db
         db_table = 'post_tag'
 
     @staticmethod
@@ -87,13 +85,12 @@ class PostTag(Model):
 
 
 
-class PostTagRelate(Model):
+class PostTagRelate(db_wrapper.Model):
     id = PrimaryKeyField()
     post_id = IntegerField()
     tag_name = CharField()
 
     class Meta:
-        database = db
         db_table = 'post_tag_relate'
 
     @staticmethod

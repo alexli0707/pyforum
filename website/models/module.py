@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 from playhouse.shortcuts import model_to_dict
 
-from website.app import db
+from website.app import db_wrapper
 from peewee import IntegerField, CharField, PrimaryKeyField, Model, SmallIntegerField, ForeignKeyField
 
 __author__ = 'walker_lee'
 
 
-class ManageModule(Model):
+class ManageModule(db_wrapper.Model):
     id = PrimaryKeyField()
     parent_id = IntegerField()
     name = CharField()
@@ -17,7 +17,6 @@ class ManageModule(Model):
     weight = SmallIntegerField()
 
     class Meta:
-        database = db
         db_table = 'manage_module'
 
     @staticmethod
@@ -30,7 +29,7 @@ class ManageModule(Model):
         return menus, submenus
 
 
-class RoleModule(Model):
+class RoleModule(db_wrapper.Model):
     id = PrimaryKeyField()
     role_id = SmallIntegerField()
     module_id = IntegerField()
@@ -39,7 +38,6 @@ class RoleModule(Model):
 
 
     class Meta:
-        database = db
         db_table = 'role_module'
 
     @staticmethod

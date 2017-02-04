@@ -3,7 +3,7 @@
 from urllib import parse
 
 import re
-from website.app import db
+from website.app import db_wrapper
 
 from website.http.main_exception import MainException
 
