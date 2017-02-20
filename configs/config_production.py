@@ -3,7 +3,10 @@
 
 __author__ = 'walker_lee'
 
-
+import os
+# __file__ refers to the file settings.py
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
+APP_STATIC = os.path.join(APP_ROOT, 'website/static/')
 # 端口配置
 API_PORT = 15102
 ADMIN_PORT = 15103
@@ -45,7 +48,7 @@ TEMPLATES_AUTO_RELOAD =True #自动刷新html
 
 
 REDIS_HOST = '127.0.0.1'
-REDIS_PORT = '6479'
+REDIS_PORT = '6379'
 REDIS_DB = '8'
 REDIS_PASSWORD = 'walkerpassw0rd'
 
