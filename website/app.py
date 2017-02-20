@@ -27,7 +27,6 @@ __author__ = 'walker_lee'
 
 
 mail = Mail()
-# db = PooledMySQLDatabase(database=MYSQL_NAME, max_connections=32, stale_timeout=300, **MYSQL)
 db_wrapper = None
 db = None
 login_manager = LoginManager()

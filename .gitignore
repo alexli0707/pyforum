@@ -10,7 +10,6 @@ config.py
 .idea
 #后台前端忽略
 website/static/node_modules
-.idea
 __pycache__/
 website/__pycache__/
 website/commons/__pycache__/
