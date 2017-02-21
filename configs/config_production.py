@@ -25,7 +25,7 @@ SUPER_ADMIN = ('admin', 'admin')
 
 # 数据库配置
 MYSQL_NAME = 'pyforum'
-MYSQL = {'host': 'localhost', 'password': '0707', 'user': 'root'}
+MYSQL = {'host': 'localhost', 'password': 'walkerpassw0rd', 'user': 'root'}
 
 OBJECT_ID_WIDTH = 10 ** 13  # 全局ID的长度
 

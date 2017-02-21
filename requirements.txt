@@ -8,6 +8,8 @@ Flask-Mail==0.9.1
 Flask-OAuthlib==0.9.3
 flask-paginate==0.4.5
 Flask-Session==0.3.0
+gevent==1.2.1
+greenlet==0.4.12
 httptools==0.0.9
 itsdangerous==0.24
 Jinja2==2.9.4
