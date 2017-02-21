@@ -50,7 +50,7 @@ TEMPLATES_AUTO_RELOAD =True #自动刷新html
 REDIS_HOST = '127.0.0.1'
 REDIS_PORT = '6379'
 REDIS_DB = '8'
-REDIS_PASSWORD = 'walkerpassw0rd'
+REDIS_PASSWORD = ''
 
 # SESSION
 SESSION_SALT = 'h\xf2\x80-\x93\x80\x9d\x8b\xdf_\t\xa4>5\xa2w\x91\xcd\xe1\x82\xdb\xde\x18\xfe'
